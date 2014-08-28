@@ -25,7 +25,7 @@ module CookbookLogrotate
     monthly         nocompress  nocopy          nocopytruncate  nocreate
     nodelaycompress nodateext   nomail          nomissingok     noolddir
     nosharedscripts noshred     notifempty      sharedscripts   shred
-    su              weekly          yearly
+    su              weekly      yearly
   ) unless const_defined?(:DIRECTIVES)
 
   VALUES = %w(
