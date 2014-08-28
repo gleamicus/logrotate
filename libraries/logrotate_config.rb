@@ -25,14 +25,14 @@ module CookbookLogrotate
     monthly         nocompress  nocopy          nocopytruncate  nocreate
     nodelaycompress nodateext   nomail          nomissingok     noolddir
     nosharedscripts noshred     notifempty      sharedscripts   shred
-    su              weekly      yearly
+    weekly      yearly
   ) unless const_defined?(:DIRECTIVES)
 
   VALUES = %w(
     compresscmd    uncompresscmd  compressext    compressoptions
     create         dateformat     include        mail
     maxage         minsize        rotate         size
-    shredcycles    start          tabooext
+    shredcycles    start          su             tabooext
   ) unless const_defined?(:VALUES)
 
   SCRIPTS = %w(firstaction  prerotate  postrotate  lastaction) unless const_defined?(:SCRIPTS)
