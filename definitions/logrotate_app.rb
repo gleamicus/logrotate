@@ -23,8 +23,8 @@ log_rotate_params = {
   :template       => 'logrotate.erb',
   :cookbook       => 'logrotate',
   :template_mode  => '0440',
-  :template_owner => 'root',
-  :template_group => 'root',
+  :template_owner => node['root_user'],
+  :template_group => node['root_group'],
   :postrotate     => nil,
   :prerotate      => nil,
   :firstaction    => nil,
@@ -47,7 +47,7 @@ define(:logrotate_app, log_rotate_params) do
       raise
     end
 
-    template "/etc/logrotate.d/#{params[:name]}" do
+    template File.join(node['logrotate']['conf_dir'], "logrotate.d", params[:name]) do
       source   params[:template]
       cookbook params[:cookbook]
       mode     params[:template_mode]
@@ -84,7 +84,7 @@ define(:logrotate_app, log_rotate_params) do
       )
     end
   else
-    file "/etc/logrotate.d/#{params[:name]}" do
+    file File.join(node['logrotate']['conf_dir'], "logrotate.d", params[:name]) do
       action :delete
     end
   end

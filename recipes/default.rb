@@ -19,14 +19,14 @@
 
 package 'logrotate'
 
-directory "/etc/logrotate.d" do
-  owner "root"
-  group "root"
+directory File.join(node['logrotate']['conf_dir'], "logrotate.d") do
+  owner node['root_user']
+  group node['root_group']
   mode "0755"
   action :create
 end
 
-if platform? "solaris2" # ~FC023 style preference
+if ["solaris", "freebsd"].include?(node.platform)
   cron "logrotate" do
     minute "35"
     hour "7"

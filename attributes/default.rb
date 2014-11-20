@@ -17,22 +17,35 @@
 # limitations under the License.
 #
 
-default['logrotate']['global'] = {
-  'weekly' => true,
-  'rotate' => 4,
-  'create' => '',
+case node.platform
+when 'freebsd'
+  default['logrotate']['conf_dir'] = '/usr/local/etc'
+else
+  default['logrotate']['conf_dir'] = '/etc'
+end
 
-  '/var/log/wtmp' => {
+default['logrotate']['global']['weekly'] = true
+default['logrotate']['global']['rotate'] = 4
+default['logrotate']['global']['create'] = ''
+
+case node.platform
+when 'freebsd'
+  default['logrotate']['global']['/var/log/lastlog'] = {
+    'monthly' => true,
+    'rotate' => 1
+  }
+else
+  default['logrotate']['global']['/var/log/wtmp'] = {
     'missingok' => true,
     'monthly' => true,
     'create' => '0664 root utmp',
     'rotate' => 1
-  },
+  }
 
-  '/var/log/btmp' => {
+  default['logrotate']['global']['/var/log/btmp'] = {
     'missingok' => true,
     'monthly' => true,
     'create' => '0660 root utmp',
     'rotate' => 1
   }
-}
+end

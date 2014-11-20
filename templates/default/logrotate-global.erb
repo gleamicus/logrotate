@@ -9,7 +9,7 @@
 <%= k %> <%= v %>
 <% end -%>
 
-include /etc/logrotate.d
+include <%= File.join(node['logrotate']['conf_dir'], "logrotate.d") %>
 
 <% @configuration.paths.each do |path, path_config| -%>
 <%= path %> {
