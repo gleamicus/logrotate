@@ -23,8 +23,8 @@ log_rotate_params = {
   :template       => 'logrotate.erb',
   :cookbook       => 'logrotate',
   :template_mode  => '0440',
-  :template_owner => node['root_user'],
-  :template_group => node['root_group'],
+  :template_owner => nil,
+  :template_group => nil,
   :postrotate     => nil,
   :prerotate      => nil,
   :firstaction    => nil,
@@ -51,8 +51,8 @@ define(:logrotate_app, log_rotate_params) do
       source   params[:template]
       cookbook params[:cookbook]
       mode     params[:template_mode]
-      owner    params[:template_owner]
-      group    params[:template_group]
+      owner    params[:template_owner] || node['root_user']
+      group    params[:template_group] || node['root_group']
       backup   false
       variables(
         :path             => Array(params[:path]).map { |path| path.to_s.inspect }.join(' '),
