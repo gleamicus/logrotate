@@ -19,23 +19,6 @@
 
 # Helper module for Logrotate configuration module CookbookLogrotate
 module CookbookLogrotate
-<<<<<<< HEAD
-  DIRECTIVES = %w(
-    compress        copy        copytruncate    daily           dateext
-    delaycompress   ifempty     mailfirst       maillast        missingok
-    monthly         nocompress  nocopy          nocopytruncate  nocreate
-    nodelaycompress nodateext   nomail          nomissingok     noolddir
-    nosharedscripts noshred     notifempty      sharedscripts   shred
-    weekly      yearly
-  ) unless const_defined?(:DIRECTIVES)
-
-  VALUES = %w(
-    compresscmd    uncompresscmd  compressext    compressoptions
-    create         dateformat     include        mail
-    maxage         minsize        rotate         size
-    shredcycles    start          su             tabooext
-  ) unless const_defined?(:VALUES)
-=======
   DIRECTIVES = %w(compress copy copytruncate daily dateext
     dateyesterday delaycompress hourly ifempty mailfirst maillast
     missingok monthly nocompress nocopy nocopytruncate nocreate
@@ -46,7 +29,6 @@ module CookbookLogrotate
   VALUES = %w(compresscmd uncompresscmd compressext compressoptions
     create dateformat include mail extension maxage minsize maxsize
     rotate size shredcycles start tabooext su olddir) unless const_defined?(:VALUES)
->>>>>>> upstream/master
 
   SCRIPTS = %w(firstaction prerotate postrotate lastaction preremove) unless const_defined?(:SCRIPTS)
 
