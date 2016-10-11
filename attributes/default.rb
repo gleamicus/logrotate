@@ -28,13 +28,13 @@ default['logrotate']['global']['weekly'] = true
 default['logrotate']['global']['rotate'] = 4
 default['logrotate']['global']['create'] = ''
 
-case node.platform
-when 'freebsd'
-  default['logrotate']['global']['/var/log/utx.log'] = {
-    'monthly' => true,
-    'rotate' => 1
-  }
-else
+# case node.platform
+# when 'freebsd'
+  # default['logrotate']['global']['/var/log/utx.log'] = {
+  #   'monthly' => true,
+  #   'rotate' => 1
+  # }
+# else
   default['logrotate']['global']['/var/log/wtmp'] = {
     'missingok' => true,
     'monthly' => true,
@@ -48,4 +48,4 @@ else
     'create' => '0660 root utmp',
     'rotate' => 1
   }
-end
+# end
