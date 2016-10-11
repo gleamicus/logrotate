@@ -30,7 +30,7 @@ default['logrotate']['global']['create'] = ''
 
 case node.platform
 when 'freebsd'
-  default['logrotate']['global']['/var/log/lastlog'] = {
+  default['logrotate']['global']['/var/log/utx.log'] = {
     'monthly' => true,
     'rotate' => 1
   }
