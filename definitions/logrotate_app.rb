@@ -60,7 +60,7 @@ define(:logrotate_app, log_rotate_params) do
       logrotate_config[script_name.to_sym] = Array(params[script_name.to_sym]).join("\n")
     end
 
-    template "/etc/logrotate.d/#{params[:name]}" do
+    template File.join(node['logrotate']['conf_dir'], 'logrotate.d', params[:name]) do
       source   params[:template]
       cookbook params[:cookbook]
       mode     params[:template_mode]
