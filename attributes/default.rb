@@ -35,6 +35,7 @@ default['logrotate']['global']['create'] = ''
   #   'rotate' => 1
   # }
 # else
+if node.platform != 'freebsd'
   default['logrotate']['global']['/var/log/wtmp'] = {
     'missingok' => true,
     'monthly' => true,
@@ -48,4 +49,4 @@ default['logrotate']['global']['create'] = ''
     'create' => '0660 root utmp',
     'rotate' => 1
   }
-# end
+end
