@@ -17,25 +17,11 @@
 # limitations under the License.
 #
 
-case node.platform
+case node['platform']
 when 'freebsd'
   default['logrotate']['conf_dir'] = '/usr/local/etc'
 else
   default['logrotate']['conf_dir'] = '/etc'
-end
-
-default['logrotate']['global']['weekly'] = true
-default['logrotate']['global']['rotate'] = 4
-default['logrotate']['global']['create'] = ''
-
-# case node.platform
-# when 'freebsd'
-  # default['logrotate']['global']['/var/log/utx.log'] = {
-  #   'monthly' => true,
-  #   'rotate' => 1
-  # }
-# else
-if node.platform != 'freebsd'
   default['logrotate']['global']['/var/log/wtmp'] = {
     'missingok' => true,
     'monthly' => true,
@@ -50,3 +36,8 @@ if node.platform != 'freebsd'
     'rotate' => 1
   }
 end
+
+default['logrotate']['global']['weekly'] = true
+default['logrotate']['global']['rotate'] = 4
+default['logrotate']['global']['create'] = ''
+
