@@ -26,7 +26,7 @@ directory File.join(node['logrotate']['conf_dir'], "logrotate.d") do
   action :create
 end
 
-if ["solaris", "freebsd"].include?(node.platform)
+if ["solaris", "freebsd"].include?(node['platform'])
   cron "logrotate" do
     minute "35"
     hour "7"
