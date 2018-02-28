@@ -1,8 +1,10 @@
 #
-# Cookbook Name:: logrotate
+# Cookbook:: logrotate
 # Attribute:: default
 #
-# Copyright 2013, Chef
+# Copyright:: 2013-2017, Chef Software, Inc
+# Copyright:: 2015-2017, Steven Danna
+# Copyright:: 2016-2017, Bloomberg Finance L.P.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,27 +19,49 @@
 # limitations under the License.
 #
 
+default['logrotate']['package'] = {
+  'name' => 'logrotate',
+  'source' => nil,
+  'version' => nil,
+  'provider' => nil
+}
+
+default['logrotate']['cron']['install'] = platform?('solaris2') || platform?('aix') || platform?('freebsd')
+default['logrotate']['cron']['name'] = 'logrotate'
+default['logrotate']['cron']['minute'] = 35
+default['logrotate']['cron']['hour'] = 2
+
+default['logrotate']['global'] = {
+  'weekly' => true,
+  'rotate' => 4,
+  'create' => ''
+}
+
 case node['platform']
 when 'freebsd'
-  default['logrotate']['conf_dir'] = '/usr/local/etc'
+  default['logrotate']['directory'] = '/usr/local/etc/logrotate.d'
+  default['logrotate']['config'] = '/usr/local/etc/logrotate.conf'
+  default['logrotate']['binary'] = '/usr/local/sbin/logrotate'
+  default['logrotate']['package']['action'] = :install
+  default['logrotate']['global']['/var/log/lastlog'] = {
+    'monthly' => true,
+    'rotate' => 1
+  }
 else
-  default['logrotate']['conf_dir'] = '/etc'
+  default['logrotate']['directory'] = '/etc/logrotate.d'
+  default['logrotate']['config'] = '/etc/logrotate.conf'
+  default['logrotate']['binary'] = '/usr/sbin/logrotate'
+  default['logrotate']['package']['action'] = :upgrade
   default['logrotate']['global']['/var/log/wtmp'] = {
     'missingok' => true,
     'monthly' => true,
     'create' => '0664 root utmp',
     'rotate' => 1
   }
-
   default['logrotate']['global']['/var/log/btmp'] = {
     'missingok' => true,
     'monthly' => true,
-    'create' => '0660 root utmp',
+    'create' => '0664 root utmp',
     'rotate' => 1
   }
 end
-
-default['logrotate']['global']['weekly'] = true
-default['logrotate']['global']['rotate'] = 4
-default['logrotate']['global']['create'] = ''
-

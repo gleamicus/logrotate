@@ -16,19 +16,31 @@ logrotate_app 'tomcat-myapp-no-enable' do
   path      '/var/log/tomcat/myapp.log'
   frequency 'daily'
   rotate    30
-  enable    false
-end
-
-logrotate_app 'tomcat-myapp-alt-cookbook' do
-  cookbook  'fake'
-  path      '/var/log/tomcat/myapp.log'
-  frequency 'daily'
-  rotate    30
+  action :disable
 end
 
 logrotate_app 'tomcat-myapp-custom-options' do
   path        '/var/log/tomcat/myapp.log'
   options     %w(missingok delaycompress)
+  frequency   'daily'
+  rotate      30
+  create      '644 root adm'
+  firstaction 'echo "hi"'
+end
+
+logrotate_app 'tomcat-myapp-custom-options-as-string' do
+  path        '/var/log/tomcat/myapp.log'
+  options     'missingok delaycompress'
+  frequency   'daily'
+  rotate      30
+  create      '644 root adm'
+  firstaction 'echo "hi"'
+end
+
+logrotate_app 'tomcat-myapp-custom-template' do
+  path        '/var/log/tomcat/myapp.log'
+  cookbook    'test'
+  options     'missingok delaycompress'
   frequency   'daily'
   rotate      30
   create      '644 root adm'
