@@ -43,10 +43,6 @@ when 'freebsd'
   default['logrotate']['config'] = '/usr/local/etc/logrotate.conf'
   default['logrotate']['binary'] = '/usr/local/sbin/logrotate'
   default['logrotate']['package']['action'] = :install
-  default['logrotate']['global']['/var/log/lastlog'] = {
-    'monthly' => true,
-    'rotate' => 1
-  }
 else
   default['logrotate']['directory'] = '/etc/logrotate.d'
   default['logrotate']['config'] = '/etc/logrotate.conf'

@@ -37,6 +37,6 @@ if node['logrotate']['cron']['install'] # ~FC023
   cron node['logrotate']['cron']['name'] do
     minute node['logrotate']['cron']['minute']
     hour node['logrotate']['cron']['hour']
-    command "#{node['logrotate']['cron']['binary']} #{node['logrotate']['config']}"
+    command "#{node['logrotate']['binary']} #{node['logrotate']['config']}"
   end
 end
